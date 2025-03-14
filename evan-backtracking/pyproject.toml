@@ -1,0 +1,91 @@
+[project]
+name = "sparsperiments"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "ipython>=8.32.0",
+    "ipywidgets>=8.1.5",
+    "jupyterlab>=4.3.5",
+    "torch>=2.6",
+    # cu126... for some reason doesn't include these as requirements?
+    "triton==3.2.0; platform_system != 'Darwin'",
+    "nvidia-cublas-cu12==12.6.4.1 ; platform_system != 'Darwin'",
+    "nvidia-cuda-cupti-cu12==12.6.80 ; platform_system != 'Darwin'",
+    "nvidia-cuda-nvrtc-cu12==12.6.77 ; platform_system != 'Darwin'",
+    "nvidia-cuda-runtime-cu12==12.6.77 ; platform_system != 'Darwin'",
+    "nvidia-cudnn-cu12==9.5.1.17 ; platform_system != 'Darwin'",
+    "nvidia-cufft-cu12==11.3.0.4 ; platform_system != 'Darwin'",
+    "nvidia-curand-cu12==10.3.7.77 ; platform_system != 'Darwin'",
+    "nvidia-cusolver-cu12==11.7.1.2 ; platform_system != 'Darwin'",
+    "nvidia-cusparse-cu12==12.5.4.2 ; platform_system != 'Darwin'",
+    "nvidia-nccl-cu12==2.21.5 ; platform_system != 'Darwin'",
+    "nvidia-nvjitlink-cu12==12.6.85 ; platform_system != 'Darwin'",
+    "nvidia-nvtx-cu12==12.6.77 ; platform_system != 'Darwin'",
+    "nvidia-cusparselt-cu12==0.6.3 ; platform_system != 'Darwin'",
+    "bitsandbytes==0.45.3 ; platform_system != 'Darwin'",
+    "numpy>=2.2.3",
+    "scikit-learn>=1.6.1",
+    "matplotlib>=3.10.0",
+    "pydrive2[fsspec]>=1.21.3",
+    "datasets>=3.3.1",
+    "transformers>=4.49.0",
+    "polars>=1.24.0",
+    "safetensors>=0.5.2",
+    "jsonlines>=4.0.0",
+    "nltk>=3.9.1",
+    "sae-lens==5.5.2",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu118"
+url = "https://download.pytorch.org/whl/cu118"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu121"
+url = "https://download.pytorch.org/whl/cu121"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-rocm"
+url = "https://download.pytorch.org/whl/rocm6.2"
+explicit = true
+
+[tool.uv]
+override-dependencies = [
+    "datasets>=3.3.1",
+    "safetensors>=0.5.2",
+    "numpy>=2.2.3",
+]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu", marker = "platform_system == 'Darwin'" },
+    { index = "pytorch-cu126", marker = "platform_system != 'Darwin'" },
+]
+# graphpatch = { git = "https://github.com/evan-lloyd/graphpatch.git", rev = "0-2-4-dev" }
+# graphpatch = { path = "../graphpatch" }
+
+[dependency-groups]
+dev = [
+    "ruff>=0.9.6",
+    # "graphpatch[transformers,transformer-lens]",
+    "jupyterlab-freeze>=0.1.2",
+]
